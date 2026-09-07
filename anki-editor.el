@@ -408,10 +408,10 @@ The result is the path to the newly stored media file."
                   (insert-file-contents-literally path)
                   (buffer-string)))
          (hash (secure-hash 'sha1 bytes))
-         (media-file-name (format "%s-%s%s"
-                                  (file-name-base path)
-                                  hash
-                                  (file-name-extension path t))))
+         (media-file-name (downcase (format "%s-%s%s"
+                                            (file-name-base path)
+                                            hash
+                                            (file-name-extension path t)))))
     (when (eq :json-false
               (anki-editor-api-call-result 'retrieveMediaFile
                 :filename media-file-name))
